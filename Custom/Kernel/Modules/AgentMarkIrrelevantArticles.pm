@@ -82,10 +82,9 @@ sub Run {
         DynamicFields => 1,
     );
 
-    my $Key = 'ArticleIsIrrelevant';
-    $GetParam{$Key} = $Article{$Key} ? 0 : 1;
+    my $Name = $ConfigObject->Get('MarkIrrelevantArticles::DynamicField') || 'IsIrrelevantArticle';
+    $GetParam{$Name} = $Article{"DynamicField_$Name"} ? 0 : 1;
 
-    my $Name = $ConfigObject->Get('MarkIrrelevantArticles::DynamicField');
 
     my $DynamicFieldConfig = $DynamicFieldObject->DynamicFieldGet( Name => $Name );
 
@@ -93,12 +92,12 @@ sub Run {
     my $Success = $DynamicFieldBackendObject->ValueSet(
         DynamicFieldConfig => $DynamicFieldConfig,
         ObjectID           => $GetParam{ArticleID},
-        Value              => $GetParam{$Key},
+        Value              => $GetParam{$Name},
         UserID             => $Self->{UserID},
     );
 
     if ( $Success ) {
-        my $OnOff = $GetParam{$Key} ? 'on' : 'off';
+        my $OnOff = $GetParam{$Name} ? 'on' : 'off';
 
         $TicketObject->HistoryAdd(
             Name         => ( sprintf "Switched %s article relevance", $OnOff ),
