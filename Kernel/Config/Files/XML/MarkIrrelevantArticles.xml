@@ -70,7 +70,28 @@
                         <Item>PS.MarkIrrelevantArticles.css</Item>
                     </Array>
                 </Item>
+                <Item Key="JS">
+                    <Array>
+                        <Item>PS.MarkIrrelevantArticles.js</Item>
+                    </Array>
+                </Item>
             </Hash>
         </Value>
     </Setting>
+
+    <Setting Name="MarkIrrelevantArticles::DynamicField" Required="0" Valid="1">
+        <Description Translatable="1">Set dynamic field name that defines relevance.</Description>
+        <Navigation>Core::MarkIrrelevantArticles</Navigation>
+        <Value>
+            <Item ValueType="String" ValueRegex="">IsIrrelevantArticle</Item>
+        </Value>
+    </Setting>
+    <Setting Name="MarkIrrelevantArticles::HideArticleMenuItems" Required="0" Valid="1">
+        <Description Translatable="1">Enable/Disable menu items.</Description>
+        <Navigation>Core::MarkIrrelevantArticles</Navigation>
+        <Value>
+            <Item ValueType="Checkbox">0</Item>
+        </Value>
+    </Setting>
+
 </otrs_config>
