@@ -84,8 +84,6 @@ sub Run {
 
     my $Key = 'ArticleIsIrrelevant';
     if ( $Self->{Subaction} eq 'Toggle' ) {
-        $Self->{Subaction} = 'ArticleIsIrrelevant';
-
         $GetParam{$Key} = $Article{$Key} ? 0 : 1;
     }
 

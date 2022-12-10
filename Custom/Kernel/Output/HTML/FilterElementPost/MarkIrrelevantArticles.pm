@@ -35,8 +35,9 @@ sub Run {
     my $LayoutObject   = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
     my $ParamObject    = $Kernel::OM->Get('Kernel::System::Web::Request');
     my $ConfigObject   = $Kernel::OM->Get('Kernel::Config');
+    my $ArticleObject  = $Kernel::OM->Get('Kernel::System::Ticket::Article');
 
-    my $DynamicField   = $ConfigObject->Get('');
+    my $DynamicField   = $ConfigObject->Get('MarkIrrelevantArticles::DynamicField');
 
     return if !$DynamicField;
 
@@ -44,8 +45,28 @@ sub Run {
     my $TicketID   = $ParamObject->GetParam( Param => 'TicketID' );
 
     # mark irrelevant articles
+    my @IrrelevantArticles;
+
+    ARTICLEID:
+    for my $ArticleID ( @ArticleIDs ) {
+        my %Article = $ArticleObject->ArticleGet(
+            ArticleID     => $ArticleID,
+            TicketID      => $TicketID,
+            UserID        => $Self->{UserID},
+            DynamicFields => 1,
+        );
+
+        next ARTICLEID if !$Article{"DynamicField_" . $DynamicField};
+
+        push @IrrelevantArticles, $ArticleID;
+    }
+
+    $LayoutObject->AddJSData(
+        Key   => 'IrrelevantArticles',
+        Value => \@IrrelevantArticles,
+    );
     
-    
+    return 1 if $ConfigObject->Get('MarkIrrelevantArticles::HideArticleMenuItems');
 
     # add link to article menu
     my $Title    = $LanguageObject->Translate('Change article relevance');
