@@ -66,8 +66,6 @@ sub Run {
         push @IrrelevantArticles, $ArticleID;
     }
 
-Kernel::LOG( [ $Param{Data}, \@ArticleIDs, $TicketID, \@IrrelevantArticles ] );
-
     my $IrrelevantArticlesJSON = $LayoutObject->JSONEncode(
         Data => \@IrrelevantArticles,
     );
