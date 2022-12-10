@@ -17,6 +17,10 @@
         "en": "Mark articles as irrelevant",
         "de": "Markiere Artikel als irrelevant"
     },
+    "code" : [
+        { "type" : "Install" },
+        { "type" : "Upgrade" }
+    ],
     "exclude_files" : [
         "doc/MarkIrrelevantArticles.json"
     ]

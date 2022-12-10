@@ -16,12 +16,18 @@ var PS = PS || {};
  * @description
  *      This namespace contains the special module functions for the time tracking add on
  */
-PS.TicketChecklist = (function (TargetNS) {
+PS.MarkIrrelevantArticles = (function (TargetNS) {
     TargetNS.Init = function() {
-        console.debug( Core.Config.Get('IrrelevantArticles') );
+        var ArticleIDs = Core.Config.Get('IrrelevantArticles');
+        console.debug( ArticleIDs );
+
+        $.each( ArticleIDs, function ( index, ArticleID ) {
+            $('input[type="hidden"][value="' + ArticleID +'"]').closest('tr').addClass("IrrelevantArticle")
+            $('input[type="hidden"][value="' + ArticleID +'"]').closest('tr').find('td').addClass("IrrelevantArticleTd")
+        });
     };
 
     Core.Init.RegisterNamespace(TargetNS, 'APP_MODULE');
 
     return TargetNS;
-})(PS.TicketChecklist || {}));
+}(PS.MarkIrrelevantArticles || {}));

@@ -14,6 +14,21 @@
             </Hash>
         </Value>
     </Setting>
+    <Setting Name="Frontend::Output::FilterContent###MarkIrrelevantArticles" Required="0" Valid="1">
+        <Description Translatable="1">Adds css class to irrelevant articles in article tree.</Description>
+        <Navigation>Frontend::Base::OutputFilter</Navigation>
+        <Value>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::FilterContent::MarkIrrelevantArticles</Item>
+                <Item Key="Templates">
+                    <Hash>
+                        <Item Key="AgentTicketZoom">1</Item>
+                    </Hash>
+                </Item>
+            </Hash>
+        </Value>
+    </Setting>
+ 
     <Setting Name="Frontend::Module###AgentMarkIrrelevantArticles" Required="0" Valid="1">
         <Description Translatable="1">Frontend module registration for the agent interface.</Description>
         <Navigation>Frontend::Agent::ModuleRegistration</Navigation>
@@ -70,7 +85,7 @@
                         <Item>PS.MarkIrrelevantArticles.css</Item>
                     </Array>
                 </Item>
-                <Item Key="JS">
+                <Item Key="JavaScript">
                     <Array>
                         <Item>PS.MarkIrrelevantArticles.js</Item>
                     </Array>

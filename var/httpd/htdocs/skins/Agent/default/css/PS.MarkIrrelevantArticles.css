@@ -1,0 +1,14 @@
+.IrrelevantArticle {
+    text-decoration: line-through;
+    background-color: blue !important;
+}
+
+.UseArticleColors tr > td.IrrelevantArticleTd {
+    background-color: gray !important;
+    color: white !important;
+}
+
+.UseArticleColors tr.Active > td.IrrelevantArticleTd {
+    background-color: gray !important;
+    color: white !important;
+}

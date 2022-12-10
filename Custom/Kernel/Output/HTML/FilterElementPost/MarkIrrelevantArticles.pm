@@ -37,39 +37,25 @@ sub Run {
     my $ConfigObject   = $Kernel::OM->Get('Kernel::Config');
     my $ArticleObject  = $Kernel::OM->Get('Kernel::System::Ticket::Article');
 
-    my $DynamicField   = $ConfigObject->Get('MarkIrrelevantArticles::DynamicField');
+    # get template name
+    my $Templatename = $Param{TemplateFile} || '';
+
+    return 1 if !$Templatename;
+    return 1 if !$Param{Templates}->{$Templatename};
+
+    return 1 if ${$Param{Data}} =~ m{MarkIrrelevantArticles};
+
+    my $DynamicField = $ConfigObject->Get('MarkIrrelevantArticles::DynamicField');
 
     return if !$DynamicField;
 
     my @ArticleIDs = ${ $Param{Data} } =~ m{<a \s name="Article(\d+)"}xms;
     my $TicketID   = $ParamObject->GetParam( Param => 'TicketID' );
 
-    # mark irrelevant articles
-    my @IrrelevantArticles;
-
-    ARTICLEID:
-    for my $ArticleID ( @ArticleIDs ) {
-        my %Article = $ArticleObject->ArticleGet(
-            ArticleID     => $ArticleID,
-            TicketID      => $TicketID,
-            UserID        => $Self->{UserID},
-            DynamicFields => 1,
-        );
-
-        next ARTICLEID if !$Article{"DynamicField_" . $DynamicField};
-
-        push @IrrelevantArticles, $ArticleID;
-    }
-
-    $LayoutObject->AddJSData(
-        Key   => 'IrrelevantArticles',
-        Value => \@IrrelevantArticles,
-    );
-    
     return 1 if $ConfigObject->Get('MarkIrrelevantArticles::HideArticleMenuItems');
 
     # add link to article menu
-    my $Title    = $LanguageObject->Translate('Change article relevance');
+    my $Title    = $LanguageObject->Translate('Switch article relevance');
     my $Baselink = $LayoutObject->{Baselink};
 
     ${ $Param{Data} } =~ s{

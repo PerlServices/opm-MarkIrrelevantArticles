@@ -15,10 +15,18 @@
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
     <Filelist>
         <File Permission="644" Location="Custom/Kernel/Modules/AgentMarkIrrelevantArticles.pm" />
+        <File Permission="644" Location="Custom/Kernel/Output/HTML/FilterContent/MarkIrrelevantArticles.pm" />
         <File Permission="644" Location="Custom/Kernel/Output/HTML/FilterElementPost/MarkIrrelevantArticles.pm" />
         <File Permission="644" Location="Kernel/Config/Files/XML/MarkIrrelevantArticles.xml" />
         <File Permission="644" Location="Kernel/Language/de_MarkIrrelevantArticles.pm" />
         <File Permission="644" Location="var/httpd/htdocs/js/PS.MarkIrrelevantArticles.js" />
+        <File Permission="644" Location="var/httpd/htdocs/skins/Agent/default/css/PS.MarkIrrelevantArticles.css" />
         <File Permission="644" Location="var/packagesetup/MarkIrrelevantArticles.pm" />
     </Filelist>
+    <CodeInstall Type="post"><![CDATA[
+        $Kernel::OM->Get('var::packagesetup::' . $Param{Structure}->{Name}->{Content} )->CodeInstall();
+    ]]></CodeInstall>
+    <CodeUpgrade Type="post"><![CDATA[
+        $Kernel::OM->Get('var::packagesetup::' . $Param{Structure}->{Name}->{Content} )->CodeUpgrade();
+    ]]></CodeUpgrade>
 </otrs_package>

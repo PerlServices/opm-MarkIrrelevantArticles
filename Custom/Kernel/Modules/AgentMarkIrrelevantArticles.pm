@@ -83,9 +83,7 @@ sub Run {
     );
 
     my $Key = 'ArticleIsIrrelevant';
-    if ( $Self->{Subaction} eq 'Toggle' ) {
-        $GetParam{$Key} = $Article{$Key} ? 0 : 1;
-    }
+    $GetParam{$Key} = $Article{$Key} ? 0 : 1;
 
     my $Name = $ConfigObject->Get('MarkIrrelevantArticles::DynamicField');
 
@@ -95,7 +93,7 @@ sub Run {
     my $Success = $DynamicFieldBackendObject->ValueSet(
         DynamicFieldConfig => $DynamicFieldConfig,
         ObjectID           => $GetParam{ArticleID},
-        Value              => $DynamicFieldData{Value}->{$Name},
+        Value              => $GetParam{$Key},
         UserID             => $Self->{UserID},
     );
 
@@ -112,7 +110,7 @@ sub Run {
     }
 
     return $LayoutObject->Redirect(
-        URL => 'Action=AgentTicketZoom&TicketID=' . $GetParam{TicketID} . '&ArticleID=' . $GetParam{ArticleID},
+        OP => 'Action=AgentTicketZoom&TicketID=' . $GetParam{TicketID} . '&ArticleID=' . $GetParam{ArticleID},
     );
 }
  
