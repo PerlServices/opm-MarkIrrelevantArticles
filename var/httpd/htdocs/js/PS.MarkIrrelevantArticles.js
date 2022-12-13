@@ -19,11 +19,12 @@ var PS = PS || {};
 PS.MarkIrrelevantArticles = (function (TargetNS) {
     TargetNS.Init = function() {
         var ArticleIDs = Core.Config.Get('IrrelevantArticles');
-        console.debug( ArticleIDs );
 
         $.each( ArticleIDs, function ( index, ArticleID ) {
-            $('input[type="hidden"][value="' + ArticleID +'"]').closest('tr').addClass("IrrelevantArticle")
-            $('input[type="hidden"][value="' + ArticleID +'"]').closest('tr').find('td').addClass("IrrelevantArticleTd")
+            var Selector = '#ArticleTree input[type="hidden"][class="ArticleID"][value="' + ArticleID +'"]';
+            var TableRow = $(Selector).closest('tr');
+            TableRow.addClass("IrrelevantArticle");
+            TableRow.find('td').addClass("IrrelevantArticleTd");
         });
     };
 
