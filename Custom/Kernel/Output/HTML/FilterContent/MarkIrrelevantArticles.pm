@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2019 - 2022 Perl-Services.de, https://www.perl-services.de
+# Copyright (C) 2022 - 2023 Perl-Services.de, https://www.perl-services.de
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -37,7 +37,7 @@ sub Run {
     my $ConfigObject   = $Kernel::OM->Get('Kernel::Config');
     my $ArticleObject  = $Kernel::OM->Get('Kernel::System::Ticket::Article');
 
-    my $Action = $ParamObject->GetParam( Param => 'Action' );
+    my $Action = $ParamObject->GetParam( Param => 'Action' ) || '';
 
     return 1 if !$Param{Templates}->{$Action};
     return 1 if ${$Param{Data}} !~ m{PS.MarkIrrelevantArticles\.js};

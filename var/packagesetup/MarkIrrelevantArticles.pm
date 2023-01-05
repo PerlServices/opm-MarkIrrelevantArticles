@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2022 - 2022 Perl-Services.de, https://www.perl-services.de
+# Copyright (C) 2022 - 2023 Perl-Services.de, https://www.perl-services.de
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -210,11 +210,17 @@ sub _GetDynamicFieldsDefinition {
         {
             Name       => 'IsIrrelevantArticle',
             Label      => 'Is irrelevant article',
-            FieldType  => 'Text',
+            FieldType  => 'Dropdown',
             ObjectType => 'Article',
             Config     => {
-                DefaultValue => '',
-                Link         => '',
+                DefaultValue       => 0,
+                Link               => '',
+                TranslatableValues => 1,
+                PossibleNone       => 0,
+                PossibleValues     => {
+                    0 => 'No',
+                    1 => 'Yes',
+                },
             },
         },
     );
