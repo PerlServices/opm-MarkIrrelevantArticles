@@ -40,7 +40,6 @@ sub Run {
     my $Action = $ParamObject->GetParam( Param => 'Action' ) || '';
 
     return 1 if !$Param{Templates}->{$Action};
-    return 1 if ${$Param{Data}} !~ m{PS.MarkIrrelevantArticles\.js};
 
     my $DynamicField = $ConfigObject->Get('MarkIrrelevantArticles::DynamicField');
 
